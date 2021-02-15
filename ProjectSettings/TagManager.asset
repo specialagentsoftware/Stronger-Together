@@ -7,6 +7,7 @@ TagManager:
   - BuddyCount
   - LeftDisplay
   - RightDisplay
+  - Buddy
   layers:
   - Default
   - TransparentFX

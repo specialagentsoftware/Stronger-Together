@@ -8,11 +8,13 @@ public class DoorCheck : MonoBehaviour
 
     [SerializeField] float reqBuddyCount = 2;
     [SerializeField] GameObject player;
+    [SerializeField] GameObject[] follow;
     GameObject scoreText;
     GameObject leftText;
     GameObject rightText;
     float buddies;
     Movement playerscript;
+    Follow followscript;
 
     void Start()
     {
@@ -22,6 +24,7 @@ public class DoorCheck : MonoBehaviour
         scoreText = GameObject.FindGameObjectWithTag("BuddyCount");
         leftText = GameObject.FindGameObjectWithTag("LeftDisplay");
         rightText = GameObject.FindGameObjectWithTag("RightDisplay");
+        follow = GameObject.FindGameObjectsWithTag("Buddy");
     }
 
     void Update()
@@ -40,6 +43,7 @@ public class DoorCheck : MonoBehaviour
                 TextMeshPro right = rightText.gameObject.GetComponent<TextMeshPro>();
                 left.text = "YEET!";
                 right.text = "YEET!";
+                KillAllFollowers();
                 GameObject.Destroy(gameObject);
             }
         }
@@ -49,5 +53,14 @@ public class DoorCheck : MonoBehaviour
     {
         TextMeshPro score = scoreText.gameObject.GetComponent<TextMeshPro>();
         score.text = buddies.ToString();
+    }
+
+    void KillAllFollowers()
+    {
+        foreach (GameObject f in follow)
+        {
+            followscript = (Follow)f.GetComponent("Follow");
+            followscript.KillFollow();
+        }
     }
 }
